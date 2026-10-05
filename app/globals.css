@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  background-color: #fafaf9;
+}
+
+body {
+  color: #1c1917;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Print / Save as PDF (spec section 10) -------------------------------- */
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  /* Hide buttons and navigation. */
+  [data-print="hide"] {
+    display: none !important;
+  }
+
+  /* Never break a card or section across pages. */
+  [data-print="keep"] {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  [data-print="page-break"] {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.7em;
+    color: #57534e;
+    word-break: break-all;
+  }
+
+  /* Screenshots print at a readable size without overflowing. */
+  [data-print="shot"] {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
